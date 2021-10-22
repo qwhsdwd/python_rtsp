@@ -30,7 +30,7 @@ class Producer(threading.Thread):
 		self.fourcc = cv2.VideoWriter_fourcc('M', 'P', '4', '2')
 
 		# 定义视频文件输入对象
-		self.outVideo = cv2.VideoWriter('saveDir1.avi', self.fourcc, self.fps, self.size)
+		# self.outVideo = cv2.VideoWriter('saveDir1.avi', self.fourcc, self.fps, self.size)
 
 	def run(self):
 

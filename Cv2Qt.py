@@ -1,8 +1,9 @@
 from PyQt5 import QtGui
-from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QVBoxLayout, QMessageBox
 from PyQt5.QtGui import QPixmap
 import sys
 import cv2
+from cv2 import COLOR_BGR2RGB,cvtColor,VideoCapture
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
 import numpy as np
 
@@ -13,18 +14,23 @@ class VideoThread(QThread):
     def run(self):
         rtmp_str = "rtsp://admin:abc123++@172.16.248.70/cam/realmonitor?channel=1&subtype=0"
         rtmp_str = "rtsp://admin:Admin12345@192.168.3.252:554/Streaming/Channels/1"
+        rtmp_str = "rtsp://admin:abc123++@172.16.248.70/cam/realmonitor?channel=1&subtype=0"
         # capture from web cam
-        cap = cv2.VideoCapture(rtmp_str)
-        while True:
-            ret, cv_img = cap.read()
-            if ret:
-                self.change_pixmap_signal.emit(cv_img)
+        cap = VideoCapture(rtmp_str)
+        if cap.isOpened():
+            while True:
+                ret, cv_img = cap.read()
+                if ret:
+                    self.change_pixmap_signal.emit(cv_img)
+        else:
+            QMessageBox.critical(None, '错误', '这是一个错误对话框', QMessageBox.Ok)
 
 
 class App(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("Qt live label demo")
+        self.setWindowTitle("vedio for Pyqt")
+        self.resize(1200, 700)
         self.disply_width = 1200
         self.display_height = 1500
         # create the label that holds the image
@@ -55,7 +61,7 @@ class App(QWidget):
 
     def convert_cv_qt(self, cv_img):
         """Convert from an opencv image to QPixmap"""
-        rgb_image = cv2.cvtColor(cv_img, cv2.COLOR_BGR2RGB)
+        rgb_image = cvtColor(cv_img, COLOR_BGR2RGB)
         h, w, ch = rgb_image.shape
         bytes_per_line = ch * w
         convert_to_Qt_format = QtGui.QImage(rgb_image.data, w, h, bytes_per_line, QtGui.QImage.Format_RGB888)
