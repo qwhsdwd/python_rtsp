@@ -11,8 +11,10 @@ class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
 
     def run(self):
+        rtmp_str = "rtsp://admin:abc123++@172.16.248.70/cam/realmonitor?channel=1&subtype=0"
+        rtmp_str = "rtsp://admin:Admin12345@192.168.3.252:554/Streaming/Channels/1"
         # capture from web cam
-        cap = cv2.VideoCapture(0)
+        cap = cv2.VideoCapture(rtmp_str)
         while True:
             ret, cv_img = cap.read()
             if ret:
