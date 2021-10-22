@@ -22,6 +22,11 @@ from docopt import docopt
 
 arguments = docopt(__doc__, version="1.0.0")
 print(sys.argv[1] + "\n\n")
-print(arguments)
+
+print(arguments['<username>'])
+print(arguments["<password>"])
+print(arguments["<ip>"])
+print(arguments["<ip>"])
+# print(arguments)
 # for i in arguments:
 #     print(i)

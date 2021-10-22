@@ -1,3 +1,23 @@
+"""参数说明
+Usage:
+  Cv2qt hk ((-u|--username) <username>) ((-w|--password) <password>) ((-i|--ip) <ip>) ((-p|port) <port>)
+  Cv2qt dh ((-u|--username) <username>) ((-w|--password) <password>) ((-i|ip) <ip>)
+  Cv2qt -h | --help
+  Cv2qt --version
+
+Options:
+    -h --help   帮助.
+    -v --version    查看版本号.
+    -u --username   用户名
+    -w --password   密码
+    -i --ip     ip地址
+    -p --port   端口号
+
+Examples:
+    Cv2qt hk -u admin -w Admin12345 -i 192.168.3.252 -p 554
+    Cv2qt dh -u admin -w abc123++ -i 172.16.248.70
+"""
+
 from PyQt5 import QtGui
 from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QVBoxLayout, QMessageBox
 from PyQt5.QtGui import QPixmap
@@ -6,17 +26,18 @@ import cv2
 from cv2 import COLOR_BGR2RGB, cvtColor, VideoCapture
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
 import numpy as np
+from docopt import docopt
 
+
+rtsp_str = ""
+ip=""
 
 class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
 
     def run(self):
-        rtmp_str = "rtsp://admin:abc123++@172.16.248.70/cam/realmonitor?channel=1&subtype=0"
-        rtmp_str = "rtsp://admin:Admin12345@192.168.3.252:554/Streaming/Channels/1"
-        rtmp_str = "rtsp://admin:abc123++@172.16.248.70/cam/realmonitor?channel=1&subtype=0"
         # capture from web cam
-        cap = VideoCapture(rtmp_str)
+        cap = VideoCapture(rtsp_str)
         while True:
             ret, cv_img = cap.read()
             if ret:
@@ -26,7 +47,7 @@ class VideoThread(QThread):
 class App(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("vedio for Pyqt")
+        self.setWindowTitle(ip)
         self.resize(1200, 700)
         self.disply_width = 1200
         self.display_height = 1500
@@ -67,6 +88,16 @@ class App(QWidget):
 
 
 if __name__ == "__main__":
+    arguments = docopt(__doc__, version="1.0.0")
+    username = arguments['<username>']
+    password = arguments['<password>']
+    ip = arguments['<ip>']
+    if arguments['hk']:
+        port = arguments['<port>']
+        rtsp_str = "rtsp://{}:{}@{}:{}/Streaming/Channels/1".format(username, password, ip, port)
+    elif arguments['dh']:
+        rtsp_str = "rtsp://{}:{}@{}/cam/realmonitor?channel=1&subtype=0".format(username, password, ip)
+    print(rtsp_str)
     app = QApplication(sys.argv)
     a = App()
     a.show()
