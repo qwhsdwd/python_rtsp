@@ -3,24 +3,10 @@ from PyQt5.QtWidgets import QWidget, QApplication, QLabel, QVBoxLayout, QMessage
 from PyQt5.QtGui import QPixmap
 import sys
 import cv2
-from cv2 import COLOR_BGR2RGB,cvtColor,VideoCapture
+from cv2 import COLOR_BGR2RGB, cvtColor, VideoCapture
 from PyQt5.QtCore import pyqtSignal, pyqtSlot, Qt, QThread
 import numpy as np
-"""Cv2qt
-Usage:
-  Cv2qt device (add|delete) (<name>) [<password>  --authority=<authority>]
-  Cv2qt change_name <name>
-  Cv2qt change_pwd <password>
-  Cv2qt add_description <description>..
-  Cv2qt -h | --help
-  Cv2qt --version
 
-Options:
-  -h --help     帮助.
-  -v --version     查看版本号.
-  --authority=<authority>  权限设置 [default: user].
-  --group=<group>      分组
-"""
 
 class VideoThread(QThread):
     change_pixmap_signal = pyqtSignal(np.ndarray)
@@ -82,8 +68,6 @@ class App(QWidget):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    for i in sys.argv:
-        print(i)
     a = App()
     a.show()
     sys.exit(app.exec_())
