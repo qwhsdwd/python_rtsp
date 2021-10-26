@@ -4,10 +4,6 @@ from PIL import Image, ImageTk
 import threading
 
 
-def take_snapshot():
-    print("有人给你点赞啦！")
-
-
 def video_loop():
     while 1:
         success, img = camera.read()  # 从摄像头读取照片
@@ -22,18 +18,16 @@ def video_loop():
             # root.after(1, video_loop)
 
 
-rtmp_str = "rtsp://admin:abc123++@172.16.248.70/cam/realmonitor?channel=1&subtype=0"
+rtmp_str = "rtsp://admin:abc123++@172.16.248.71/cam/realmonitor?channel=1&subtype=0"
 camera = cv2.VideoCapture(rtmp_str)  # 摄像头
 
 root = Tk()
 root.title("opencv + tkinter")
-# root.protocol('WM_DELETE_WINDOW', detector)
+root.geometry("700x500")
 
-panel = Label(root, height=700, width=1200)  # initialize image panel
+panel = Label(root, height=500, width=700)  # initialize image panel
 panel.pack(padx=10, pady=10)
 root.config(cursor="arrow")
-# btn = Button(root, text="点赞!", command=take_snapshot)
-# btn.pack(fill="both", expand=True, padx=10, pady=10)
 
 t1 = threading.Thread(target=video_loop)
 t1.start()
