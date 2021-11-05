@@ -15,6 +15,5 @@
 ## 使用方式
 - 命令运行: 运行Cv2Qt.py --help查看参数
 - 浏览器内运行:进入open-video-on-browser文件夹，先运行Cv2Registry.exe 将私有协议写入注册表(用管理员打开，不然权限不够)，再直接在浏览器输入参数即可
->浏览器参数：Cv2qt:// hk -u admin -w Admin12345 -i 192.168.3.252 -p 554（海康)
->                    
-              Cv2qt:// dh -u admin -w abc123++ -i 172.16.248.70（大华)
+    浏览器参数：Cv2qt:// hk -u admin -w Admin12345 -i 192.168.3.252 -p 554（海康)                    
+                Cv2qt:// dh -u admin -w abc123++ -i 172.16.248.70（大华)
