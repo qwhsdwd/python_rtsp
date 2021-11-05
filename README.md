@@ -1,6 +1,6 @@
 # trsp for python
 
-![](.\image\show_image.png)
+![](./image/show_image.png)
 # 简介
 基于python开发，使用pyqt5和opencv框架完成的rtsp流实时查看程序，支持远程查看海康和大华摄像头，**且支持在浏览器直接打开（附带windows写入注册表代码）**，由于涉及到对图像的实时处理，所以比较占用cpu和内存，建议一次性开启数量不要超过2个
 ## 代码文件介绍
