@@ -6,6 +6,7 @@
 ## 代码文件介绍
 - image：图片文件存放目录
 - registry:写入注册表代码，如果如果不需要gui界面,操作RegistryDeal(path)函数
+- open-video-on-browse：已打包好的应用程序，可以直接下载运行
 - Cv2Qt.py:命令行运行脚本
 - Cv2QtChrome.py： 浏览器内运行的脚本
 - Cv2Show.py：只有cv2模块实现的trsp流查看，图像不稳定(不推荐)
